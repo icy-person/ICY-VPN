@@ -22,7 +22,7 @@ class MainActivity:ComponentActivity(){
  private fun startVpn(){ContextCompat.startForegroundService(this,Intent(this,IcyVpnService::class.java).setAction(IcyVpnService.START))}
  private fun disconnect(){startService(Intent(this,IcyVpnService::class.java).setAction(IcyVpnService.STOP))}
 }
-@Composable private fun IcyTheme(content:@Composable()->Unit)=MaterialTheme(colorScheme=darkColorScheme(primary=Color(0xFF9B87F5),secondary=Color(0xFF6D9CFF),surface=Color(0xFF151820),background=Color(0xFF0B0D12)),content=content)
+@Composable private fun IcyTheme(content: @Composable () -> Unit)=MaterialTheme(colorScheme=darkColorScheme(primary=Color(0xFF9B87F5),secondary=Color(0xFF6D9CFF),surface=Color(0xFF151820),background=Color(0xFF0B0D12)),content=content)
 @Composable private fun IcyApp(state:VpnUiState,onConnect:()->Unit,onDisconnect:()->Unit){
  var settings by remember{mutableStateOf(false)}
  Scaffold(topBar={TopAppBar(title={Text(if(settings)"Settings" else "ICY VPN")})}){pad->
