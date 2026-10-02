@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ class MainActivity:ComponentActivity(){
  private fun disconnect(){startService(Intent(this,IcyVpnService::class.java).setAction(IcyVpnService.STOP))}
 }
 @Composable private fun IcyTheme(content: @Composable () -> Unit)=MaterialTheme(colorScheme=darkColorScheme(primary=Color(0xFF9B87F5),secondary=Color(0xFF6D9CFF),surface=Color(0xFF151820),background=Color(0xFF0B0D12)),content=content)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun IcyApp(state:VpnUiState,onConnect:()->Unit,onDisconnect:()->Unit){
  var settings by remember{mutableStateOf(false)}
  Scaffold(topBar={TopAppBar(title={Text(if(settings)"Settings" else "ICY VPN")})}){pad->
