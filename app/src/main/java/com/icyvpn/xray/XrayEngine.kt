@@ -5,7 +5,7 @@ import org.json.JSONObject
 import libXray.DialerController
 import libXray.LibXray
 class XrayEngine(private val service:VpnService){
- private val controller=object:DialerController{override fun protectFd(fd:Int)=service.protect(fd)}
+ private val controller=object:DialerController{override fun protectFd(fd:Long)=service.protect(fd.toInt())}
  private var active=false;private var activeConfig:String?=null
  fun start(config:String,tunFd:Int,dns:List<String>):Boolean{
   stop()
