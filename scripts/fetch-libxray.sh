@@ -2,7 +2,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LIB_DIR="$ROOT/app/libs";AAR="$LIB_DIR/libXray.aar"
-VERSION="v26.9.30";URL="https://github.com/XTLS/libXray/releases/download/$VERSION/libxray-android.zip";SHA256="394b59d147b37ab46003bd3f1d687ed3b2f637cabfc0cb863f179c5a87bddde3"
+VERSION="v26.9.9";URL="https://github.com/XTLS/libXray/releases/download/$VERSION/libxray-android.zip";SHA256="4998a8b56e4a78a164b5359d5690036f83da3b575465cea57ddf29c0149c345f"
 mkdir -p "$LIB_DIR"
 if [[ -s "$AAR" ]];then exit 0;fi
 command -v curl >/dev/null||exit 1
