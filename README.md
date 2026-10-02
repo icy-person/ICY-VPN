@@ -11,7 +11,7 @@ Real Android VLESS VPN client using Kotlin/Jetpack Compose + Rust + Xray/libXray
 - DNS defaults to 8.8.8.8 and 8.8.4.4.
 - Xray sockets are protected with libXray's Android dialer controller.
 - Physical NOT_VPN network is preferred for subscription fetching.
-- libXray v26.9.30 is pinned and SHA-256 verified.
+- libXray v26.9.9 is pinned and SHA-256 verified.
 
 Build: gradle :app:assembleDebug
 Requirements: JDK 17, Android SDK/NDK, Rust and cargo-ndk.
