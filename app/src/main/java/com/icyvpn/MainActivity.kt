@@ -26,7 +26,12 @@ class MainActivity:ComponentActivity(){
 @Composable private fun IcyApp(state:VpnUiState,onConnect:()->Unit,onDisconnect:()->Unit){
  var settings by remember{mutableStateOf(false)}
  Scaffold { pad ->
-  if(settings) SettingsScreen { settings=false } else Column(Modifier.fillMaxSize().padding(pad),verticalArrangement=Arrangement.spacedBy(16.dp)){\n   Surface(Modifier.fillMaxWidth(),color=Color(0xFF0B0D12)){\n    Row(Modifier.fillMaxWidth().padding(horizontal=22.dp,vertical=14.dp),verticalAlignment=Alignment.CenterVertically){\n     Text(if(state.running)"ICY VPN — CONNECTED" else "ICY VPN",style=MaterialTheme.typography.titleLarge)\n    }\n   }
+  if(settings) SettingsScreen { settings=false } else Column(Modifier.fillMaxSize().padding(pad),verticalArrangement=Arrangement.spacedBy(16.dp)){
+   Surface(Modifier.fillMaxWidth(),color=Color(0xFF0B0D12)){
+    Row(Modifier.fillMaxWidth().padding(horizontal=22.dp,vertical=14.dp),verticalAlignment=Alignment.CenterVertically){
+     Text(if(state.running)"ICY VPN — CONNECTED" else "ICY VPN",style=MaterialTheme.typography.titleLarge)
+    }
+   }
    Card(Modifier.fillMaxWidth(),colors=CardDefaults.cardColors(containerColor=Color(0xFF151820))){Column(Modifier.padding(24.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){Text(if(state.running)"SECURE TUNNEL"else"READY",color=MaterialTheme.colorScheme.primary,style=MaterialTheme.typography.labelLarge);Text(state.status,style=MaterialTheme.typography.headlineMedium);Text(state.nodeName,style=MaterialTheme.typography.titleMedium);state.error?.let{Text(it,color=Color(0xFFFF9C9C),style=MaterialTheme.typography.bodySmall)}}}
    Button(onClick={if(state.running)onDisconnect()else onConnect()},enabled=!state.busy,modifier=Modifier.fillMaxWidth().height(54.dp)){Text(if(state.running)"Disconnect"else"Connect")}
    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(12.dp)){val c=androidx.compose.ui.platform.LocalContext.current;InfoCard("DNS",AppPrefs.dnsServers(c).joinToString(" / "),Modifier.weight(1f));InfoCard("Update",(AppPrefs.intervalMs(c)/1000L).toString()+"s",Modifier.weight(1f))}
