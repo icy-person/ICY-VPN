@@ -21,6 +21,9 @@ class IcyVpnService:VpnService(){
   vpnInterface=Builder().setSession("ICY VPN").setMtu(1500).addAddress("10.10.0.2",32).addAddress("fd00:1::2",128).addRoute("0.0.0.0",0).addRoute("::",0).addDnsServer(dns.getOrElse(0){"8.8.8.8"}).addDnsServer(dns.getOrElse(1){"8.8.4.4"}).setMetered(false).establish()
   if(vpnInterface==null){VpnStateStore.update{it.copy(status="TUN creation failed",error="Android did not grant a VPN interface")};stopVpn();return}
   VpnStateStore.update{it.copy(status="Loading node…",error=null)}
+  AppPrefs.cachedConfig(this)?.let { cached ->
+   engine.start(cached, vpnInterface?.fd ?: -1, dns)
+  }
   watcher=ConfigWatcher(this,{config,_,_->val fd=vpnInterface?.fd?:return@ConfigWatcher false;engine.replace(config,fd,AppPrefs.dnsServers(this))},{message->val cached=AppPrefs.cachedConfig(this);VpnStateStore.update{it.copy(status=if(cached!=null)"Using cached node" else "Waiting for node",error=message)}})
   executor.execute{watcher?.start()}
  }
