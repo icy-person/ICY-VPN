@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class ConfigWatcher(private val context:Context,private val onCandidate:(String,String,String)->Boolean,private val onFailure:(String)->Unit):AutoCloseable{
  companion object{const val SOURCE="https://icy-person.github.io/ir/vless.txt"}
  private val running=AtomicBoolean(true)
- fun start()=runBlocking{while(running.get()){checkOnce();if(running.get())delay(AppPrefs.intervalMs(context))}}
+ fun start()=runBlocking{while(running.get()){if(AppPrefs.autoUpdate(context))checkOnce();if(running.get())delay(AppPrefs.intervalMs(context))}}
  private fun checkOnce(){
   VpnStateStore.update{it.copy(lastCheck=System.currentTimeMillis())}
   try{
